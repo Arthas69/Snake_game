@@ -28,7 +28,7 @@ class SnakeGame:
             self._check_events()
             self.snake.update()
             self._update_screen()
-            sleep(0.5)
+            sleep(0.1)
 
     def _check_events(self):
         for event in pygame.event.get():
@@ -77,6 +77,9 @@ class SnakeGame:
         collisions = pygame.sprite.spritecollide(self.snake, self.apples, True)
 
         if collisions:
+            x = collisions[0].rect.x
+            y = collisions[0].rect.y
+            self.snake.body.insert(0, [x, y])
             self._create_apple()
 
     def _update_screen(self):
@@ -91,6 +94,7 @@ class SnakeGame:
             apple.draw()
 
         self.snake.blit_me()
+        self.snake.draw_body()
 
         pygame.display.flip()
 

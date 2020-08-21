@@ -7,17 +7,20 @@ class Settings:
         self.screen_height = None
         self.bg_color = (0, 0, 0)
 
+        self.objects_width = 20
+        self.objects_height = 20
+
         # snake settings
         self.snake_color = (255, 255, 0)
-        self.piece_width = 20
-        self.piece_height = 20
-        self.snake_speed = 20.0
+        self.piece_width = self.objects_width
+        self.piece_height = self.objects_height
+        self.snake_speed = float(self.objects_width)
 
         # apple settings
         self.apple_color = (255, 0, 0)
         self.apple_count = 1
-        self.apple_width = 20
-        self.apple_height = 20
+        self.apple_width = self.objects_width
+        self.apple_height = self.objects_height
 
         self.v_direction = 1
         self.h_direction = 1
