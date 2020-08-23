@@ -10,6 +10,10 @@ class Snake:
         self.settings = game.settings
 
         self.rect = pygame.Rect(0, 0, self.settings.piece_width, self.settings.piece_height)
+
+        self.create_snake()
+
+    def create_snake(self):
         self.rect.center = self.screen_rect.center
 
         self.y = float(self.rect.y - self.rect.y % self.settings.objects_width)
@@ -20,31 +24,34 @@ class Snake:
         for i in range(0, 4):
             self.body.append([self.x, self.y + self.settings.objects_width * i])
 
-        self.moving_up = True
-        self.moving_down = False
-        self.moving_left = False
-        self.moving_right = False
+    def _grow_snake(self, x, y):
+        self.head = [x, y]
+        self.body.insert(0, self.head)
+        self.body.pop()
+        # print(self.body)
 
-    def blit_me(self):
+    def draw_snake(self):
         pygame.draw.rect(self.screen, self.settings.snake_color, self.rect)
 
-    def draw_body(self):
         for part in self.body:
             body_rect = pygame.Rect(part[0], part[1], self.settings.piece_width, self.settings.piece_height)
             pygame.draw.rect(self.screen, self.settings.snake_color, body_rect)
 
+    def check_self_eaten(self):
+        if self.head in self.body[2:]:
+            return True
+
+    def check_boundaries(self):
+        if not 0 <= self.head[0] <= self.settings.screen_width or not \
+                0 <= self.head[1] <= self.settings.screen_height:
+            return True
+
     def update(self):
-        if self.moving_up:
-            self.y -= self.settings.snake_speed
-        elif self.moving_down:
-            self.y += self.settings.snake_speed
-        elif self.moving_left:
-            self.x -= self.settings.snake_speed
-        elif self.moving_right:
-            self.x += self.settings.snake_speed
+
+        self.x += self.settings.snake_speed * self.settings.h_direction
+        self.y += self.settings.snake_speed * self.settings.v_direction
 
         self.rect.x = self.x
         self.rect.y = self.y
 
-        self.body.insert(0, [self.x, self.y])
-        self.body.pop()
+        self._grow_snake(self.x, self.y)

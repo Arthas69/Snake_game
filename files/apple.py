@@ -11,5 +11,5 @@ class Apple(Sprite):
 
         self.rect = pygame.Rect(0, 0, self.settings.apple_width, self.settings.apple_height)
 
-    def draw(self):
+    def draw_apple(self):
         pygame.draw.rect(self.screen, self.settings.apple_color, self.rect)

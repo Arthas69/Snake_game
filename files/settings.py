@@ -14,7 +14,6 @@ class Settings:
         self.snake_color = (255, 255, 0)
         self.piece_width = self.objects_width
         self.piece_height = self.objects_height
-        self.snake_speed = float(self.objects_width)
 
         # apple settings
         self.apple_color = (255, 0, 0)
@@ -22,5 +21,8 @@ class Settings:
         self.apple_width = self.objects_width
         self.apple_height = self.objects_height
 
-        self.v_direction = 1
-        self.h_direction = 1
+    def initialize_dynamic_settings(self):
+        self.v_direction = -1
+        self.h_direction = 0
+        self.snake_speed = float(self.objects_width)
+
