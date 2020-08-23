@@ -7,6 +7,8 @@ import pygame
 from files.apple import Apple
 from files.button import Button
 from files.game_stats import GameStats
+from files.info import Info
+from files.scoreboard import Scoreboard
 from files.settings import Settings
 from files.snake import Snake
 
@@ -20,12 +22,14 @@ class SnakeGame:
         self.settings.screen_width = self.screen.get_rect().width
         self.settings.screen_height = self.screen.get_rect().height
 
-        pygame.display.set_caption('Snake')
         self.stats = GameStats(self)
+        self.sb = Scoreboard(self)
+        self.play_button = Button(self, 'Play')
+        self.info = Info(self)
+
+        pygame.display.set_caption('Snake')
         self.snake = Snake(self)
         self.apples = pygame.sprite.Group()
-
-        self.play_button = Button(self, 'Play')
 
     def run_game(self):
         while True:
@@ -103,6 +107,7 @@ class SnakeGame:
             self.snake.body.insert(0, self.snake.head)
             self.snake.head = [x, y]
             self._create_apple()
+            self.stats.score += 1
 
     def _start_game(self):
         self.stats.game_active = True
@@ -127,6 +132,9 @@ class SnakeGame:
 
         self.snake.draw_snake()
         if not self.stats.game_active:
+            self.sb.prep_images()
+            self.sb.draw_score()
+            self.info.draw_info()
             self.play_button.draw_button()
 
         pygame.display.flip()

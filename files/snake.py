@@ -47,7 +47,6 @@ class Snake:
             return True
 
     def update(self):
-
         self.x += self.settings.snake_speed * self.settings.h_direction
         self.y += self.settings.snake_speed * self.settings.v_direction
 
