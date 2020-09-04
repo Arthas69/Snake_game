@@ -36,7 +36,7 @@ class SnakeGame:
             self._check_events()
             if self.stats.game_active:
                 self._update_snake()
-                sleep(0.05)
+                sleep(0.03)
             self._update_screen()
 
     def _create_apple(self):

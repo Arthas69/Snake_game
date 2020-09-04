@@ -21,7 +21,7 @@ class Info:
         self.game_over_rect.top = self.screen_rect.top + 50
 
     def _prep_play_button_info(self):
-        self.text_color = (255, 255, 255)
+        self.text_color = (0, 0, 0)
         self.font = pygame.font.SysFont(None, 24)
 
         self.play_info_image = self.font.render("For play press 'P'", True, self.text_color)

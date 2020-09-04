@@ -10,6 +10,7 @@ class Apple(Sprite):
         self.settings = game.settings
 
         self.rect = pygame.Rect(0, 0, self.settings.apple_width, self.settings.apple_height)
+        self.image = pygame.image.load('images/apple.png')
 
     def draw_apple(self):
-        pygame.draw.rect(self.screen, self.settings.apple_color, self.rect)
+        self.screen.blit(self.image, self.rect)
