@@ -92,6 +92,7 @@ class SnakeGame:
 
     def _game_over(self):
         self.stats.game_active = False
+        self.apples.empty()
         pygame.mouse.set_visible(True)
 
     def _grow_apple(self):
@@ -102,10 +103,7 @@ class SnakeGame:
         collisions = pygame.sprite.spritecollide(self.snake, self.apples, True)
 
         if collisions:
-            x = collisions[0].rect.x
-            y = collisions[0].rect.y
-            self.snake.body.insert(0, self.snake.head)
-            self.snake.head = [x, y]
+            self.snake.body.append(self.snake.tail)
             self._create_apple()
             self.stats.score += 1
 

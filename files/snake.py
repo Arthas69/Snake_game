@@ -23,27 +23,25 @@ class Snake:
         self.body = []
         for i in range(0, 4):
             self.body.append([self.x, self.y + self.settings.objects_width * i])
+        self.tail = self.body[-1]
 
     def _grow_snake(self, x, y):
         self.head = [x, y]
         self.body.insert(0, self.head)
-        self.body.pop()
-        # print(self.body)
+        self.tail = self.body.pop()
 
     def draw_snake(self):
-        pygame.draw.rect(self.screen, self.settings.snake_color, self.rect)
-
         for part in self.body:
             body_rect = pygame.Rect(part[0], part[1], self.settings.piece_width, self.settings.piece_height)
             pygame.draw.rect(self.screen, self.settings.snake_color, body_rect)
 
     def check_self_eaten(self):
-        if self.head in self.body[2:]:
+        if self.head in self.body[1:]:
             return True
 
     def check_boundaries(self):
-        if not 0 <= self.head[0] <= self.settings.screen_width or not \
-                0 <= self.head[1] <= self.settings.screen_height:
+        if not 0 <= self.head[0] < self.screen_rect.right or not \
+                0 <= self.head[1] < self.screen_rect.bottom:
             return True
 
     def update(self):
